@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Organic Bananas",
+    "category": "Grocery",
+    "price": 1.29
+  },
+  {
+    "id": 2,
+    "name": "Whole Wheat Bread",
+    "category": "Grocery",
+    "price": 3.49
+  },
+  {
+    "id": 3,
+    "name": "Margherita Pizza",
+    "category": "Food",
+    "price": 12.99
+  },
+  {
+    "id": 4,
+    "name": "Painkillers",
+    "category": "Pharmacy",
+    "price": 8.99
+  },
+  {
+    "id": 5,
+    "name": "A4 Paper Ream",
+    "category": "Print",
+    "price": 5.00
+  },
+  {
+    "id": 6,
+    "name": "Plumbing Service",
+    "category": "Services",
+    "price": 150.00
+  },
+  {
+    "id": 7,
+    "name": "Cigarettes",
+    "category": "Tobacco",
+    "price": 15.00
+  }
+]

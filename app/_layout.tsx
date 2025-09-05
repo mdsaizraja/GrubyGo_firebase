@@ -1,29 +1,45 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Stack } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import SplashScreen from './splash';
+import AuthModal from './authModal'; // Import the modal
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [showSplash, setShowSplash] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Assume user is not logged in
+  const [modalVisible, setModalVisible] = useState(false);
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+  useEffect(() => {
+    // Show splash screen for 1 second
+    const splashTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1000);
+
+    return () => clearTimeout(splashTimer);
+  }, []);
+
+  useEffect(() => {
+    // If the splash screen is hidden and the user is not logged in, show the modal
+    if (!showSplash && !isLoggedIn) {
+      setModalVisible(true);
+    }
+  }, [showSplash, isLoggedIn]);
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  // Show the splash screen first
+  if (showSplash) {
+    return <SplashScreen />;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+      <AuthModal visible={modalVisible} onClose={handleCloseModal} />
+    </>
   );
 }
